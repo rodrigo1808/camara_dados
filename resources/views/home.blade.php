@@ -16,10 +16,55 @@
                 <h2>Deputados</h2>
             </header>
             <hr />
-            <div class="row">
-                <div class="col-3">
+            <div class="row row-cols-4 g-4">
+                <div class="col">
                     <div class="card">
-                        
+                        <img src="https://www.camara.leg.br/internet/deputado/bandep/76874.jpg" alt="Foto de perfil do deputado Marcelo Freixho" class="card-img-top">
+                        <div class="card-body">
+                            <h3 class="card-title fs-4">Marcelo Freixo</h3>
+                            <h4 class="card-subtitle mb-2 text-muted fs-6">PSB</h4>
+                            <a href="http://" class="btn btn-success">Mais informações</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card">
+                        <img src="https://www.camara.leg.br/internet/deputado/bandep/76874.jpg" alt="Foto de perfil do deputado Marcelo Freixho" class="card-img-top">
+                        <div class="card-body">
+                            <h3 class="card-title fs-4">Marcelo Freixo</h3>
+                            <h4 class="card-subtitle mb-2 text-muted fs-6">PSB</h4>
+                            <a href="http://" class="btn btn-success">Mais informações</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card">
+                        <img src="https://www.camara.leg.br/internet/deputado/bandep/76874.jpg" alt="Foto de perfil do deputado Marcelo Freixho" class="card-img-top">
+                        <div class="card-body">
+                            <h3 class="card-title fs-4">Marcelo Freixo</h3>
+                            <h4 class="card-subtitle mb-2 text-muted fs-6">PSB</h4>
+                            <a href="http://" class="btn btn-success">Mais informações</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card">
+                        <img src="https://www.camara.leg.br/internet/deputado/bandep/76874.jpg" alt="Foto de perfil do deputado Marcelo Freixho" class="card-img-top">
+                        <div class="card-body">
+                            <h3 class="card-title fs-4">Marcelo Freixo</h3>
+                            <h4 class="card-subtitle mb-2 text-muted fs-6">PSB</h4>
+                            <a href="http://" class="btn btn-success">Mais informações</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card">
+                        <img src="https://www.camara.leg.br/internet/deputado/bandep/76874.jpg" alt="Foto de perfil do deputado Marcelo Freixho" class="card-img-top">
+                        <div class="card-body">
+                            <h3 class="card-title fs-4">Marcelo Freixo</h3>
+                            <h4 class="card-subtitle mb-2 text-muted fs-6">PSB</h4>
+                            <a href="http://" class="btn btn-success">Mais informações</a>
+                        </div>
                     </div>
                 </div>
             </div>
