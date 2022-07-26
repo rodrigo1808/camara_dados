@@ -15,7 +15,7 @@
             <h2>Deputados</h2>
         </header>
         <hr />
-        <div class="row row-cols-4 g-4">
+        <div class="row row-cols-4 g-4 mb-3">
             @foreach ($dados as $deputado)
                 <div class="col">
                     <div class="card">
@@ -29,5 +29,14 @@
                 </div>
             @endforeach
         </div>
+        <nav>
+            <ul class="pagination justify-content-center">
+                @foreach ($links as $link)
+                    <li @class(['page-item', 'active' => $link["rel"] == "atual"])>
+                        <a href="{{ route("home", ["pagina" => $link["pagina"]]) }}" class="page-link">{{ $link["label"] }}</a>
+                    </li>
+                @endforeach
+            </ul>
+        </nav>
     </section>
 @endsection
