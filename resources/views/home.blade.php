@@ -1,9 +1,9 @@
 @extends('layouts.template')
 
 @section('content')
-    <section id="greetings" class="pt-3 mb-3">
+    <section id="greetings" class="pt-3 mb-4">
         <header>
-            <h2>Olá Visitante!</h2>
+            <h2><strong>Olá Visitante!</strong></h2>
         </header>
         <hr />
         <div>
@@ -12,7 +12,7 @@
     </section>
     <section id="deputados">
         <header>
-            <h2>Deputados</h2>
+            <h2><strong>Deputados</strong></h2>
         </header>
         <hr />
         <div class="row row-cols-4 g-4 mb-3">
