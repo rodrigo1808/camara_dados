@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 
 class HomeController extends Controller
@@ -65,11 +66,14 @@ class HomeController extends Controller
     }
 
     protected function getDataFromAPI(int $page): object {
-        $response = null;
+        $result = null;
 
-        if (env("APP_ENV") == "local") {
-            $response = Http::withOptions([
-                    "verify" => false
+        if (Cache::has("deputados-lista-" . $page)) {
+           $result = Cache::get("deputados-lista-" . $page);
+        } else {
+            if (env("APP_ENV") == "local") {
+                $response = Http::withOptions([
+                        "verify" => false
                 ])
                 ->accept("application/json")
                 ->get(env("DADOS_ABERTOS_API_URL") . "/deputados", [
@@ -83,11 +87,17 @@ class HomeController extends Controller
                 "pagina" => $page
             ]);
         }
-        
-        if ($response->failed()) {
-            throw new \Exception("Ocorreu um erro durante a requesição da API");
+            
+            if ($response->failed()) {
+                throw new \Exception("Ocorreu um erro durante a requesição da API");
+            }
+
+            $result = $response->body();
+
+            Cache::put("deputados-lista-" . $page, $result, now()->addMonthNoOverflow());
         }
 
-        return json_decode($response->body());
+
+        return json_decode($result);
     }
 }
