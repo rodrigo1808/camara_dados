@@ -28,6 +28,18 @@ class HomeController extends Controller
         }
     }
 
+    public function show(Request $request, int $id) {
+        try {
+            $deputado = $this->GetDeputadoFromAPI($id);
+
+            return view("deputado.detalhes", [
+                "deputado" => $deputado->dados
+            ]);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
     protected function GetDataFromAPI(int $page): object {
         $cacheKey = "deputados-lista-" . $page;
         $result = null;
@@ -61,6 +73,36 @@ class HomeController extends Controller
             Cache::put($cacheKey, $result, now()->addMonthNoOverflow());
         }
 
+
+        return json_decode($result);
+    }
+
+    protected function GetDeputadoFromAPI(int $id): object {
+        $cacheKey = "deputado-detalhes-" . $id;
+        $result = [];
+
+        if (Cache::has($cacheKey)) {
+            $result = Cache::get($cacheKey);
+        } else {
+            if (env("APP_ENV") == "local") {
+                $response = Http::withOptions([
+                        "verify" => false
+                    ])
+                    ->accept("application/json")
+                    ->get(env("DADOS_ABERTOS_API_URL") . "/deputados/" . $id);
+            } else {
+                $response = Http::accept("application/json")
+                ->get(env("DADOS_ABERTOS_API_URL") . "/deputados/" . $id);
+            }
+            
+            if ($response->failed()) {
+                throw new \Exception("Ocorreu um erro durante a requesição da API");
+            }
+
+            $result = $response->body();
+
+            Cache::put($cacheKey, $result, now()->addMonthNoOverflow());
+        }
 
         return json_decode($result);
     }
