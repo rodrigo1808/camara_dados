@@ -120,7 +120,7 @@ class DeputadoController extends Controller
 
             if ($i == $firstItem) {
                 // Adicionar pagina anterior
-                $links[] = [
+                $result[] = [
                     "label" => "Anterior",
                     "pagina" => $currentPage - 1,
                     "rel" => "anterior"
@@ -131,7 +131,7 @@ class DeputadoController extends Controller
 
             if ($i == $lastItem) {
                 // Como saber se é a última página?
-                $links[] = [
+                $result[] = [
                     "label" => "Proximo",
                     "pagina" => $currentPage + 1,
                     "rel" => "proximo"
