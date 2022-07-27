@@ -15,11 +15,11 @@
             <h2><strong>Deputados</strong></h2>
         </header>
         <hr />
-        <div class="row row-cols-4 g-4 mb-3">
+        <div class="row row-cols-2 row-cols-md-3 row-cols-xl-4 g-4 mb-3">
             @foreach ($dados as $deputado)
                 <div class="col">
                     <div class="card">
-                        <img src="{{ $deputado->urlFoto }}" alt="Foto de perfil do deputado {{ $deputado->nome }}" class="card-img-top">
+                        <img src="{{ $deputado->urlFoto }}" alt="Foto de perfil do deputado {{ $deputado->nome }}" class="card-img-top img-fluid">
                         <div class="card-body">
                             <h3 class="card-title fs-4">{{ $deputado->nome }}</h3>
                             <h4 class="card-subtitle mb-2 text-muted fs-6">{{ $deputado->siglaPartido }}</h4>
