@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 
-class HomeController extends Controller
+class DeputadoController extends Controller
 {
     protected int $itensPerPage = 16;
 
@@ -19,7 +19,7 @@ class HomeController extends Controller
             $body = $this->GetDataFromAPI($currentPage);
             $links = $this->CalculateLinks((int) $currentPage);
     
-            return view("home", [
+            return view("deputados", [
                 "dados" => $body->dados,
                 "links" => $links
             ]);        
