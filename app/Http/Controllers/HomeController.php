@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Http;
 
 class HomeController extends Controller
 {
-    protected int $itensPerPage = 10;
+    protected int $itensPerPage = 16;
 
     public function index(Request $request) {
         try {
