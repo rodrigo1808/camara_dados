@@ -29,10 +29,11 @@ class HomeController extends Controller
     }
 
     protected function GetDataFromAPI(int $page): object {
+        $cacheKey = "deputados-lista-" . $page;
         $result = null;
 
-        if (Cache::has("deputados-lista-" . $page)) {
-           $result = Cache::get("deputados-lista-" . $page);
+        if (Cache::has($cacheKey)) {
+           $result = Cache::get($cacheKey);
         } else {
             if (env("APP_ENV") == "local") {
                 $response = Http::withOptions([
@@ -57,7 +58,7 @@ class HomeController extends Controller
 
             $result = $response->body();
 
-            Cache::put("deputados-lista-" . $page, $result, now()->addMonthNoOverflow());
+            Cache::put($cacheKey, $result, now()->addMonthNoOverflow());
         }
 
 
