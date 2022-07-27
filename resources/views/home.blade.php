@@ -23,7 +23,7 @@
                         <div class="card-body">
                             <h3 class="card-title fs-4">{{ $deputado->nome }}</h3>
                             <h4 class="card-subtitle mb-2 text-muted fs-6">{{ $deputado->siglaPartido }}</h4>
-                            <a href="http://" class="btn fundo-verde">Mais informações</a>
+                            <a href="{{ route("deputado.detalhes", ["id" => $deputado->id]) }}" class="btn fundo-verde">Mais informações</a>
                         </div>
                     </div>
                 </div>
