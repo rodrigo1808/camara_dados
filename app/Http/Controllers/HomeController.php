@@ -16,7 +16,7 @@ class HomeController extends Controller
             $currentPage = $request->query("pagina", 1);
 
             // Substituir por chamada para o banco
-            $body = $this->getDataFromAPI($currentPage);
+            $body = $this->GetDataFromAPI($currentPage);
 
             $firstItem = -3;
             $lastItem = 5;
@@ -65,7 +65,7 @@ class HomeController extends Controller
         }
     }
 
-    protected function getDataFromAPI(int $page): object {
+    protected function GetDataFromAPI(int $page): object {
         $result = null;
 
         if (Cache::has("deputados-lista-" . $page)) {
