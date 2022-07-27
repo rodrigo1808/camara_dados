@@ -17,44 +17,7 @@ class HomeController extends Controller
 
             // Substituir por chamada para o banco
             $body = $this->GetDataFromAPI($currentPage);
-
-            $firstItem = -3;
-            $lastItem = 5;
-            $links = [];
-
-            for ($i = $firstItem; $i <= $lastItem; $i++) { 
-                if ($i + $currentPage <= 0) {
-                    continue;
-                }
-
-                if ($i == $firstItem) {
-                    // Adicionar pagina anterior
-                    $links[] = [
-                        "label" => "Anterior",
-                        "pagina" => $currentPage - 1,
-                        "rel" => "anterior"
-                    ];
-
-                    continue;
-                }
-
-                if ($i == $lastItem) {
-                    // Saber se é a última página?
-                    $links[] = [
-                        "label" => "Proximo",
-                        "pagina" => $currentPage + 1,
-                        "rel" => "proximo"
-                    ];
-
-                    continue;
-                }
-
-                $links[] = [
-                    "label" => $i + $currentPage,
-                    "pagina" => $i + $currentPage,
-                    "rel" => $i + $currentPage == $currentPage ? "atual" : "",
-                ];
-            }
+            $links = $this->CalculateLinks((int) $currentPage);
     
             return view("home", [
                 "dados" => $body->dados,
@@ -74,19 +37,19 @@ class HomeController extends Controller
             if (env("APP_ENV") == "local") {
                 $response = Http::withOptions([
                         "verify" => false
-                ])
-                ->accept("application/json")
+                    ])
+                    ->accept("application/json")
+                    ->get(env("DADOS_ABERTOS_API_URL") . "/deputados", [
+                        "itens" => $this->itensPerPage,
+                        "pagina" => $page
+                    ]);
+            } else {
+                $response = Http::accept("application/json")
                 ->get(env("DADOS_ABERTOS_API_URL") . "/deputados", [
                     "itens" => $this->itensPerPage,
                     "pagina" => $page
                 ]);
-        } else {
-            $response = Http::accept("application/json")
-            ->get(env("DADOS_ABERTOS_API_URL") . "/deputados", [
-                "itens" => $this->itensPerPage,
-                "pagina" => $page
-            ]);
-        }
+            }
             
             if ($response->failed()) {
                 throw new \Exception("Ocorreu um erro durante a requesição da API");
@@ -99,5 +62,48 @@ class HomeController extends Controller
 
 
         return json_decode($result);
+    }
+
+    protected function CalculateLinks(int $currentPage): array {
+        $firstItem = -3;
+        $lastItem = 5;
+        $result = [];
+
+        for ($i = $firstItem; $i <= $lastItem; $i++) { 
+            $relativePage = $i + $currentPage;
+
+            if ($relativePage <= 0)
+                continue;
+
+            if ($i == $firstItem) {
+                // Adicionar pagina anterior
+                $links[] = [
+                    "label" => "Anterior",
+                    "pagina" => $currentPage - 1,
+                    "rel" => "anterior"
+                ];
+
+                continue;
+            }
+
+            if ($i == $lastItem) {
+                // Como saber se é a última página?
+                $links[] = [
+                    "label" => "Proximo",
+                    "pagina" => $currentPage + 1,
+                    "rel" => "proximo"
+                ];
+
+                continue;
+            }
+
+            $result[] = [
+                "label" => $relativePage,
+                "pagina" => $relativePage,
+                "rel" => $relativePage == $currentPage ? "atual" : "",
+            ];
+        }
+
+        return $result;
     }
 }
