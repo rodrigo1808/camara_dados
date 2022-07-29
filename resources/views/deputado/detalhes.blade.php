@@ -21,7 +21,8 @@
                     <li class="list-group-item"><strong>Nome Civil</strong>: {{ $deputado->nomeCivil }}</li>
                     <li class="list-group-item"><strong>Partido</strong>: {{ $deputado->ultimoStatus->siglaPartido }}</li>
                     <li class="list-group-item"><strong>UF</strong>: {{ $deputado->ultimoStatus->siglaUf }}</li>
-                    <li class="list-group-item"><strong>Email</strong>: {{ $deputado->ultimoStatus->email }}</li>
+                    <li class="list-group-item"><strong>Email</strong>: <a href="mailto:{{ $deputado->ultimoStatus->email }}">{{ $deputado->ultimoStatus->email }}</a></li>
+                    <li class="list-group-item"><strong>Data de Nascimento</strong>: {{ (new \DateTime($deputado->dataNascimento))->format("d/m/Y") }}</li>
                     <li class="list-group-item"><strong>Situação</strong>: {{ $deputado->ultimoStatus->situacao }}</li>
                     <li class="list-group-item"><strong>Condição Eleitoral</strong>: {{ $deputado->ultimoStatus->condicaoEleitoral }}</li>
                 </ul>
