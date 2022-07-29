@@ -40,7 +40,7 @@ class DeputadoController extends Controller
         }
     }
 
-    protected function GetDataFromAPI(int $page): object {
+    public function GetDataFromAPI(int $page): object {
         $cacheKey = "deputados-lista-" . $page;
         $result = null;
 
@@ -72,7 +72,6 @@ class DeputadoController extends Controller
 
             Cache::put($cacheKey, $result, now()->addMonthNoOverflow());
         }
-
 
         return json_decode($result);
     }
