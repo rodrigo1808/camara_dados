@@ -11,6 +11,7 @@
 <body style="padding-top: 70px;">
     @include('layouts.header')
     <main class="container">
+        @yield("breadcrumb")
         @yield("content")
     </main>
     @include("layouts.footer")
