@@ -19,10 +19,10 @@
             @foreach ($dados as $deputado)
                 <div class="col">
                     <div class="card">
-                        <img src="{{ $deputado->urlFoto }}" alt="Foto de perfil do deputado {{ $deputado->nome }}" class="card-img-top img-fluid">
+                        <img src="{{ $deputado->url_foto }}" alt="Foto de perfil do deputado {{ $deputado->nome }}" class="card-img-top img-fluid">
                         <div class="card-body">
                             <h3 class="card-title fs-4">{{ $deputado->nome }}</h3>
-                            <h4 class="card-subtitle mb-2 text-muted fs-6">{{ $deputado->siglaPartido }}</h4>
+                            <h4 class="card-subtitle mb-2 text-muted fs-6">{{ $deputado->sigla }}</h4>
                             <a href="{{ route("deputado.detalhes", ["id" => $deputado->id]) }}" class="btn fundo-verde">Mais informações</a>
                         </div>
                     </div>
