@@ -12,7 +12,7 @@
     </section>
     <section id="deputados">
         <header>
-            <h2><strong>Deputados</strong></h2>
+            <h1><strong>Deputados</strong></h1>
         </header>
         <hr />
         <div class="row row-cols-2 row-cols-md-3 row-cols-xl-4 g-4 mb-3">
@@ -32,8 +32,8 @@
         <nav>
             <ul class="pagination justify-content-center">
                 @foreach ($links as $link)
-                    <li @class(['page-item', 'active' => $link["rel"] == "atual"])>
-                        <a href="{{ route("deputados", ["pagina" => $link["pagina"]]) }}" class="page-link">{{ $link["label"] }}</a>
+                    <li @class(['page-item', 'active' => $link->rel == "atual"])>
+                        <a href="{{ route("deputados", ["pagina" => $link->pagina]) }}" class="page-link">{{ $link->label }}</a>
                     </li>
                 @endforeach
             </ul>
