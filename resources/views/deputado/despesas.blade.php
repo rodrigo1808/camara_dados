@@ -32,11 +32,27 @@
                             <td scope="row">{{ $despesa->tipoDespesa }}</td>
                             <td scope="row">{{ (new \DateTime($despesa->dataDocumento))->format("d/m/Y") }}</td>
                             <td scope="row">{{ $despesa->valorLiquido }}</td>
-                            <td scope="row">{{ $despesa->urlDocumento || "Não disponível" }}</td>
+                            <td scope="row">
+                                @if ($despesa->urlDocumento)
+                                    <a href="{{ $despesa->urlDocumento }}" target="_blank" rel="noopener noreferrer">Ver documento</a>
+                                @else
+                                    Não disponível
+                                @endif
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
         </div>
+        <nav>
+            <ul class="pagination justify-content-center">
+                @foreach ($links as $link)
+                    <li @class(['page-item', 'active' => $link->rel == 'atual'])>
+                        <a href="{{ route('deputados.despesas', ['pagina' => $link->pagina]) }}"
+                            class="page-link">{{ $link->label }}</a>
+                    </li>
+                @endforeach
+            </ul>
+        </nav>
     </section>
 @endsection

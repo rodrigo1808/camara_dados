@@ -41,9 +41,12 @@ class DespesaController extends Controller
             $deputado = (new DeputadoController())->GetDeputadoFromAPI($id)->dados;
             $despesas = $this->GetDespesaPorDeputado($id, $page)->dados;
 
+            $links = \App\Utils\Pagination::CalculateLinks($page);
+
             return view("deputado.despesas", [
                 "deputado" => $deputado,
-                "despesas" => $despesas
+                "despesas" => $despesas,
+                "links" => $links
             ]);
         } catch (\Throwable $th) {
             throw $th;
