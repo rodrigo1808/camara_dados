@@ -34,6 +34,20 @@ class DespesaController extends Controller
         }
     }
 
+    public function show(Request $request, int $id) {
+        try {
+            $deputado = (new DeputadoController())->GetDeputadoFromAPI($id)->dados;
+            $despesas = $this->GetDespesaPorDeputado($id)->dados;
+
+            return view("deputado.despesas", [
+                "deputado" => $deputado,
+                "despesas" => $despesas
+            ]);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
     protected function SumOfCostPerDeputado(object $deputado): object {
         $cacheKey = "soma-despesas-" . $deputado->id;
         $result = null;

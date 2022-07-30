@@ -24,7 +24,7 @@
                             <td>{{ $despesa->deputado_nome }}</td>
                             <td>{{ $despesa->deputado_partido }}</td>
                             <td>R$ {{ $despesa->custo_total }}</td>
-                            <td><button class="btn btn-primary ">Ver Detalhes</button></td>
+                            <td><a href="{{ route("deputado.despesas", ["id" => $despesa->deputado_id]) }}" class="btn btn-primary ">Ver Detalhes</a></td>
                         </tr>
                     @endforeach
                 </tbody>

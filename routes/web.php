@@ -16,3 +16,4 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [\App\Http\Controllers\DeputadoController::class, "index"])->name("deputados");
 Route::get("/deputados/{id}", [\App\Http\Controllers\DeputadoController::class, "show"])->name("deputado.detalhes")->where("id", "\d+");
 Route::get("/despesas", [\App\Http\Controllers\DespesaController::class, "index"])->name("deputados.despesas");
+Route::get("despesas/{id}", [\App\Http\Controllers\DespesaController::class, "show"])->name("deputado.despesas");
