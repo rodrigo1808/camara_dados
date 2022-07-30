@@ -76,7 +76,7 @@ class DeputadoController extends Controller
         return json_decode($result);
     }
 
-    protected function GetDeputadoFromAPI(int $id): object {
+    public function GetDeputadoFromAPI(int $id): object {
         $cacheKey = "deputado-detalhes-" . $id;
         $result = [];
 
