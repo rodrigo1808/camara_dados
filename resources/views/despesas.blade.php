@@ -28,8 +28,17 @@
                         </tr>
                     @endforeach
                 </tbody>
-                <tfoot></tfoot>
             </table>
         </div>
+        <nav>
+            <ul class="pagination justify-content-center">
+                @foreach ($links as $link)
+                    <li @class(['page-item', 'active' => $link->rel == 'atual'])>
+                        <a href="{{ route('despesas', ['pagina' => $link->pagina]) }}"
+                            class="page-link">{{ $link->label }}</a>
+                    </li>
+                @endforeach
+            </ul>
+        </nav>
     </section>
 @endsection

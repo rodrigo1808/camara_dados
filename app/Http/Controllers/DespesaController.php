@@ -23,8 +23,11 @@ class DespesaController extends Controller
                 $despesasPorDeputado[] = $this->SumOfCostPerDeputado($deputado);
             }
 
+            $links = \App\Utils\Pagination::CalculateLinks($page);
+
             return view("despesas", [
-                "despesas" => $despesasPorDeputado
+                "despesas" => $despesasPorDeputado,
+                "links" => $links
             ]);
         } catch (\Throwable $th) {
             throw $th;
