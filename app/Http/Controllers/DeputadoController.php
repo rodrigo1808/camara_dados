@@ -17,7 +17,7 @@ class DeputadoController extends Controller
 
             // Substituir por chamada para o banco
             $body = $this->GetDataFromAPI($currentPage);
-            $links = $this->CalculateLinks((int) $currentPage);
+            $links = \App\Utils\Pagination::CalculateLinks((int) $currentPage);
     
             return view("deputados", [
                 "dados" => $body->dados,
@@ -104,48 +104,5 @@ class DeputadoController extends Controller
         }
 
         return json_decode($result);
-    }
-
-    protected function CalculateLinks(int $currentPage): array {
-        $firstItem = -3;
-        $lastItem = 5;
-        $result = [];
-
-        for ($i = $firstItem; $i <= $lastItem; $i++) { 
-            $relativePage = $i + $currentPage;
-
-            if ($relativePage <= 0)
-                continue;
-
-            if ($i == $firstItem) {
-                // Adicionar pagina anterior
-                $result[] = [
-                    "label" => "Anterior",
-                    "pagina" => $currentPage - 1,
-                    "rel" => "anterior"
-                ];
-
-                continue;
-            }
-
-            if ($i == $lastItem) {
-                // Como saber se é a última página?
-                $result[] = [
-                    "label" => "Proximo",
-                    "pagina" => $currentPage + 1,
-                    "rel" => "proximo"
-                ];
-
-                continue;
-            }
-
-            $result[] = [
-                "label" => $relativePage,
-                "pagina" => $relativePage,
-                "rel" => $relativePage == $currentPage ? "atual" : "",
-            ];
-        }
-
-        return $result;
     }
 }
