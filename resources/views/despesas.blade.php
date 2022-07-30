@@ -34,7 +34,7 @@
             <ul class="pagination justify-content-center">
                 @foreach ($links as $link)
                     <li @class(['page-item', 'active' => $link->rel == 'atual'])>
-                        <a href="{{ route('despesas', ['pagina' => $link->pagina]) }}"
+                        <a href="{{ route('deputados.despesas', ['pagina' => $link->pagina]) }}"
                             class="page-link">{{ $link->label }}</a>
                     </li>
                 @endforeach
