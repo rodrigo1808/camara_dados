@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 
 class DeputadoController extends Controller
@@ -15,12 +16,18 @@ class DeputadoController extends Controller
         try {
             $currentPage = $request->query("pagina", 1);
 
-            // Substituir por chamada para o banco
-            $body = $this->GetDataFromAPI($currentPage);
+            // $body = $this->GetDataFromAPI($currentPage);
+            $body = DB::select("
+                select deputados.id, deputados.nome, deputados.cpf, deputados.escolariedade, deputados.url_foto, partidos.sigla
+                from deputados
+                inner join partidos on deputados.partido_id=partidos.id
+                order by deputados.nome asc
+                limit ?, ?
+            ", [$this->itensPerPage * ($currentPage - 1), $this->itensPerPage * $currentPage]);
             $links = \App\Utils\Pagination::CalculateLinks((int) $currentPage);
     
             return view("deputados", [
-                "dados" => $body->dados,
+                "dados" => $body,
                 "links" => $links
             ]);        
         } catch (\Throwable $th) {
@@ -30,10 +37,16 @@ class DeputadoController extends Controller
 
     public function show(Request $request, int $id) {
         try {
-            $deputado = $this->GetDeputadoFromAPI($id);
+            // $deputado = $this->GetDeputadoFromAPI($id);
+            $deputado = DB::select("
+                select deputados.*, partidos.id as partido_id, partidos.nome as partido_nome, partidos.sigla as partido_sigla
+                from deputados
+                inner join partidos on deputados.partido_id=partidos.id
+                where deputados.id = ?
+            ", [$id]);
 
             return view("deputado.detalhes", [
-                "deputado" => $deputado->dados
+                "deputado" => $deputado[0]
             ]);
         } catch (\Throwable $th) {
             throw $th;
