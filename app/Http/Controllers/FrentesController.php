@@ -32,8 +32,11 @@ class FrentesController extends Controller
             Cache::put($cacheKey, $body);
         }
 
+        $links = \App\Utils\Pagination::CalculateLinks($page);
+
         return view("frentes", [
-            "frentes" => $body
+            "frentes" => $body,
+            "links" => $links
         ]);
     }
 }
