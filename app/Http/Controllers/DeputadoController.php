@@ -20,7 +20,7 @@ class DeputadoController extends Controller
             $body = DB::select("
                 select deputados.id, deputados.nome, deputados.url_foto, partidos.sigla as partido_sigla
                 from deputados
-                inner join partidos on deputados.partido_id=partidos.id
+                left outer join partidos on deputados.partido_id=partidos.id
                 order by deputados.nome asc
                 limit ? offset ?
             ", [$this->itensPerPage, $this->itensPerPage * ($currentPage - 1)]);
