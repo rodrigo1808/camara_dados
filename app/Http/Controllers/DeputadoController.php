@@ -39,15 +39,10 @@ class DeputadoController extends Controller
     public function show(Request $request, int $id) {
         try {
             // $deputado = $this->GetDeputadoFromAPI($id);
-            $deputado = DB::select("
-                select deputados.*, partidos.id as partido_id, partidos.nome as partido_nome, partidos.sigla as partido_sigla
-                from deputados
-                inner join partidos on deputados.partido_id=partidos.id
-                where deputados.id = ?
-            ", [$id]);
+            $deputado = $this->GetDeputadoFromDB($id);
 
             return view("deputado.detalhes", [
-                "deputado" => $deputado[0]
+                "deputado" => $deputado
             ]);
         } catch (\Throwable $th) {
             throw $th;
@@ -118,5 +113,14 @@ class DeputadoController extends Controller
         }
 
         return json_decode($result);
+    }
+
+    public function GetDeputadoFromDB(int $id): object {
+        return DB::select("
+            select deputados.*, partidos.id as partido_id, partidos.nome as partido_nome, partidos.sigla as partido_sigla
+            from deputados
+            inner join partidos on deputados.partido_id=partidos.id
+            where deputados.id = ?
+        ", [$id])[0];
     }
 }
