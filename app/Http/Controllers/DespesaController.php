@@ -43,8 +43,16 @@ class DespesaController extends Controller
         try {
             $page = $request->query("pagina", 1);
 
-            $deputado = (new DeputadoController())->GetDeputadoFromAPI($id)->dados;
-            $despesas = $this->GetDespesaPorDeputado($id, $page)->dados;
+            $deputado = (new DeputadoController())->GetDeputadoFromDB($id);
+
+            // $despesas = $this->GetDespesaPorDeputado($id, $page)->dados;
+            $despesas = DB::select("
+                select * 
+                from despesas
+                where despesas.deputado_id=?
+                order by data desc
+                limit ? offset ?
+            ", [$id, $this->itensPerPage, $this->itensPerPage * ($page - 1)]);
 
             $links = \App\Utils\Pagination::CalculateLinks($page);
 
