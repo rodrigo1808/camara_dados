@@ -195,10 +195,10 @@ class PopulateDatabaseWithCamaraData implements ShouldQueue
                 $frente = \DB::select('select * from frentes where id = ?', [$relation['id']]);
                 if($relation['idLegislatura'] == 56 && $frente) {
                     \DB::unprepared(
-                        "INSERT into deputados_frentes (deputado_id, frente_id) 
-                        VALUES ({$deputado['id']}, {$relation['id']})
+                        "INSERT into deputados_frentes (deputado_id, frente_id, legislatura) 
+                        VALUES ({$deputado['id']}, {$relation['id']}, '2019-2022')
                         ON DUPLICATE KEY UPDATE    
-                        deputado_id={$deputado['id']}, frente_id={$relation['id']}"
+                        deputado_id={$deputado['id']}, frente_id={$relation['id']}, legislatura='2019-2022'"
                     );
                 }
             }
