@@ -18,12 +18,13 @@ class DeputadoController extends Controller
 
             // $body = $this->GetDataFromAPI($currentPage);
             $body = DB::select("
-                select deputados.id, deputados.nome, deputados.cpf, deputados.escolariedade, deputados.url_foto, partidos.sigla
+                select deputados.id, deputados.nome, deputados.url_foto, partidos.sigla as partido_sigla
                 from deputados
                 inner join partidos on deputados.partido_id=partidos.id
                 order by deputados.nome asc
-                limit ?, ?
-            ", [$this->itensPerPage * ($currentPage - 1), $this->itensPerPage * $currentPage]);
+                limit ? offset ?
+            ", [$this->itensPerPage, $this->itensPerPage * ($currentPage - 1)]);
+
             $links = \App\Utils\Pagination::CalculateLinks((int) $currentPage);
     
             return view("deputados", [
