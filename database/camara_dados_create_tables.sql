@@ -1,4 +1,4 @@
-/* trabalhodebdLogico: */
+/* camara_dados_logico: */
 
 CREATE TABLE Deputados (
     cpf VARCHAR(255),
@@ -11,26 +11,27 @@ CREATE TABLE Deputados (
     partido_id INTEGER,
     data_nascimento DATE,
     municipio_nascimento VARCHAR(255),
-    uf_nascimento VARCHAR(255)
+    uf_nascimento VARCHAR(255),
+    situacao VARCHAR(255),
+    condicao_eleitoral VARCHAR(255),
+    email VARCHAR(255),
+    nome_civil VARCHAR(255),
+    nome_eleitoral VARCHAR(255)
 );
 
 CREATE TABLE Despesas (
     data DATE,
     descricao VARCHAR(255),
     numero_documento VARCHAR(255) PRIMARY KEY,
-    valor_liquido NUMERIC,
+    valor_liquido NUMERIC(10,2),
     deputado_id INTEGER
 );
 
-CREATE TABLE Proposicoes (
-    data_votacao DATE,
-    situacao VARCHAR(255),
+CREATE TABLE Frentes (
+    telefone VARCHAR(255),
     titulo VARCHAR(255),
-    ementa VARCHAR(255),
-    tipo VARCHAR(255),
-    ano_proposto VARCHAR(255),
     id INTEGER PRIMARY KEY,
-    propositor_id INTEGER
+    coordenador_id INTEGER
 );
 
 CREATE TABLE Partidos (
@@ -43,14 +44,13 @@ CREATE TABLE Partidos (
 
 CREATE TABLE Ocupacoes (
     deputado_id INT NOT NULL,
-    ocupacao VARCHAR(255),
+    ocupacao VARCHAR(511),
     PRIMARY KEY (deputado_id, ocupacao)
 );
 
-CREATE TABLE Votacoes (
+CREATE TABLE Deputados_Frentes (
     deputado_id INTEGER,
-    proposicoes_id INTEGER,
-    voto VARCHAR(255)
+    frente_id INTEGER
 );
  
 ALTER TABLE Despesas ADD CONSTRAINT FK_Despesa_Deputado
@@ -58,8 +58,8 @@ ALTER TABLE Despesas ADD CONSTRAINT FK_Despesa_Deputado
     REFERENCES Deputados (id)
     ON DELETE CASCADE;
  
-ALTER TABLE Proposicoes ADD CONSTRAINT FK_Proposicao_Deputado
-    FOREIGN KEY (propositor_id)
+ALTER TABLE Frentes ADD CONSTRAINT FK_Frente_Deputado
+    FOREIGN KEY (coordenador_id)
     REFERENCES Deputados (id)
     ON DELETE SET NULL;
  
@@ -71,12 +71,12 @@ ALTER TABLE Ocupacoes ADD CONSTRAINT FK_Ocupacao_Deputado
     FOREIGN KEY (deputado_id)
     REFERENCES Deputados (id);
  
-ALTER TABLE Votacoes ADD CONSTRAINT FK_Votacao_Deputado
+ALTER TABLE Deputados_Frentes ADD CONSTRAINT FK_Deputados_Frentes_Deputado
     FOREIGN KEY (deputado_id)
     REFERENCES Deputados (id)
     ON DELETE SET NULL;
  
-ALTER TABLE Votacoes ADD CONSTRAINT FK_Votacao_Proposicao
-    FOREIGN KEY (proposicoes_id)
-    REFERENCES Proposicoes (id)
+ALTER TABLE Deputados_Frentes ADD CONSTRAINT FK_Deputados_Frentes_Frente
+    FOREIGN KEY (frente_id)
+    REFERENCES Frentes (id)
     ON DELETE SET NULL;
