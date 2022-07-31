@@ -22,7 +22,7 @@ class DespesaController extends Controller
             $despesasPorDeputado = DB::select("
                 select deputados.id, deputados.nome, deputados.partido_id, partidos.id as partido_id, partidos.nome as partido_nome, despesas.deputado_id, SUM(despesas.valor_liquido) as despesa_total
                 from deputados
-                inner join partidos on deputados.partido_id=partidos.id
+                left outer join partidos on deputados.partido_id=partidos.id
                 inner join despesas on deputados.id=despesas.deputado_id
                 group by despesas.deputado_id, deputados.id, deputados.nome, deputados.partido_id, partidos.id, partidos.nome, despesas.deputado_id
                 limit ? offset ?
