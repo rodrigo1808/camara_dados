@@ -20,6 +20,9 @@
                     <li class="nav-item">
                         <a @class([ "nav-link", "active" => Request::routeIs("partidos") ]) href="{{ route("partidos") }}"><strong>Partidos</strong></a>
                     </li>
+                    <li class="nav-item">
+                        <a @class([ "nav-link", "active" => Request::routeIs("frentes") ]) href="{{ route("frentes") }}"><strong>Frentes</strong></a>
+                    </li>
                 </ul>
             </div>
         </div>
