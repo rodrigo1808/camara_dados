@@ -18,7 +18,7 @@
                         <a @class([ "nav-link", "active" => Request::routeIs("deputados.despesas") ]) href="{{ route("deputados.despesas") }}"><strong>Despesas</strong></a>
                     </li>
                     <li class="nav-item">
-                        <a @class([ "nav-link", "active" => Request::routeIs("preposicoes") ]) href="#"><strong>Preposições</strong></a>
+                        <a @class([ "nav-link", "active" => Request::routeIs("partidos") ]) href="{{ route("partidos") }}"><strong>Partidos</strong></a>
                     </li>
                 </ul>
             </div>
