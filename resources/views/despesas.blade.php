@@ -18,13 +18,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($despesas as $despesa)
+                    @foreach ($despesasPorDeputado as $deputado)
                         <tr>
-                            <th scope="row">{{ $despesa->deputado_id }}</th>
-                            <td>{{ $despesa->deputado_nome }}</td>
-                            <td>{{ $despesa->deputado_partido }}</td>
-                            <td>R$ {{ $despesa->custo_total }}</td>
-                            <td><a href="{{ route("deputado.despesas", ["id" => $despesa->deputado_id]) }}" class="btn btn-primary ">Ver Detalhes</a></td>
+                            <th scope="row">{{ $deputado->id }}</th>
+                            <td>{{ $deputado->nome }}</td>
+                            <td>{{ $deputado->partido_nome }}</td>
+                            <td>R$ {{ number_format((double) $deputado->despesa_total, 2, ",", ".") }}</td>
+                            <td><a href="{{ route("deputado.despesas", ["id" => $deputado->id]) }}" class="btn btn-primary ">Ver Detalhes</a></td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -34,7 +34,7 @@
             <ul class="pagination justify-content-center">
                 @foreach ($links as $link)
                     <li @class(['page-item', 'active' => $link->rel == 'atual'])>
-                        <a href="{{ route('deputado.despesas', ['pagina' => $link->pagina]) }}"
+                        <a href="{{ route('deputados.despesas', ['pagina' => $link->pagina]) }}"
                             class="page-link">{{ $link->label }}</a>
                     </li>
                 @endforeach

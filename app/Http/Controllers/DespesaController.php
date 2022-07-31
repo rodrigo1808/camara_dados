@@ -5,28 +5,33 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 
 class DespesaController extends Controller
 {
+    protected int $itensPerPage = 16;
+
     public function index(Request $request) {
         try {
             $page = $request->input("pagina", 1);
 
-            // Resgatar os Deputados
-            $deputados = (new DeputadoController())->GetDataFromAPI($page)->dados;
+            // $deputados = (new DeputadoController())->GetDataFromAPI($page)->dados;
 
             // Somar as despesas individuais de cada um
-            $despesasPorDeputado = [];
-
-            foreach ($deputados as $key => $deputado) {
-                $despesasPorDeputado[] = $this->SumOfCostPerDeputado($deputado);
-            }
+            $despesasPorDeputado = DB::select("
+                select deputados.id, deputados.nome, deputados.partido_id, partidos.id as partido_id, partidos.nome as partido_nome, despesas.deputado_id, SUM(despesas.valor_liquido) as despesa_total
+                from deputados
+                inner join partidos on deputados.partido_id=partidos.id
+                inner join despesas on deputados.id=despesas.deputado_id
+                group by despesas.deputado_id, deputados.id, deputados.nome, deputados.partido_id, partidos.id, partidos.nome, despesas.deputado_id
+                limit ? offset ?
+            ", [$this->itensPerPage, $this->itensPerPage * ($page - 1)]);
 
             $links = \App\Utils\Pagination::CalculateLinks($page);
 
             return view("despesas", [
-                "despesas" => $despesasPorDeputado,
+                "despesasPorDeputado" => $despesasPorDeputado,
                 "links" => $links
             ]);
         } catch (\Throwable $th) {
@@ -38,8 +43,16 @@ class DespesaController extends Controller
         try {
             $page = $request->query("pagina", 1);
 
-            $deputado = (new DeputadoController())->GetDeputadoFromAPI($id)->dados;
-            $despesas = $this->GetDespesaPorDeputado($id, $page)->dados;
+            $deputado = (new DeputadoController())->GetDeputadoFromDB($id);
+
+            // $despesas = $this->GetDespesaPorDeputado($id, $page)->dados;
+            $despesas = DB::select("
+                select * 
+                from despesas
+                where despesas.deputado_id=?
+                order by data desc
+                limit ? offset ?
+            ", [$id, $this->itensPerPage, $this->itensPerPage * ($page - 1)]);
 
             $links = \App\Utils\Pagination::CalculateLinks($page);
 
