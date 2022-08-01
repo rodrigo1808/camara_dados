@@ -20,7 +20,7 @@ class FrentesController extends Controller
             $body = Cache::get($cacheKey);
         } else {
             $body = DB::select("
-                select frentes.titulo, frentes.telefone, coordenador.nome as coordenador_nome, count(deputados_frentes.frente_id) as quantidade_membros, sum(despesas.valor_liquido) as despesa_total
+                select frentes.titulo, frentes.telefone, coordenador.nome as coordenador_nome, count(distinct deputados_frentes.frente_id) as quantidade_membros, sum(despesas.valor_liquido) as despesa_total
                 from frentes
                 inner join deputados as coordenador on frentes.coordenador_id=coordenador.id
                 left outer join deputados_frentes on frentes.id=deputados_frentes.frente_id
