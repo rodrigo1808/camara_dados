@@ -22,8 +22,11 @@ class PartidoController extends Controller
             limit ? offset ?
         ", [$this->itensPerPage, $this->itensPerPage * ($page - 1)]);
 
+        $links = \App\Utils\Pagination::CalculateLinks($page);
+
         return view("partidos", [
-            "partidos" => $body
+            "partidos" => $body,
+            "links" => $links
         ]);
     }
 }
