@@ -1,3 +1,9 @@
 .fundo-verde {
-    background-color: #51AD32;
+    background-color: #51ad32;
+}
+
+.small-size-center {
+    width: 50%;
+    margin-right: auto;
+    margin-left: auto;
 }

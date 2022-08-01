@@ -10,7 +10,7 @@
             @foreach ($partidos as $partido)
                 <div class="col">
                     <div class="card">
-                        <img src="{{ $partido->url_foto }}" alt="Imagem do partido {{ $partido->sigla }}" title="Imagem do partido {{ $partido->sigla }}" class="card-img-top img-fluid">
+                        <img src="{{ $partido->url_foto }}" alt="Imagem do partido {{ $partido->sigla }}" title="Imagem do partido {{ $partido->sigla }}" class="card-img-top img-fluid small-size-center">
                         <div class="card-body">
                             <h3 class="card-title text-center"><abbr title="{{ $partido->nome }}" class="initialism">{{ $partido->sigla }}</abbr></h3>
                             <div class="card-text">
