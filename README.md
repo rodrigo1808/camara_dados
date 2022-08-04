@@ -8,8 +8,7 @@ Seja bem-vindo, aqui se encontra o repositório do projeto final de **Banco de D
 - Diego Vasconcelos Schardosim de Matos
 
 ## Links
-- Relatório: [https://www.overleaf.com/2588134892rchfpzgchdyy]()
-- Apresentação: [https://docs.google.com/presentation/d/1h9uBG8ibV6qZNQFVnwLoBDTYdc3QarTJXVT0_RiNCok/edit?usp=sharing]()
+- Apresentação: [https://docs.google.com/presentation/d/1h9uBG8ibV6qZNQFVnwLoBDTYdc3QarTJXVT0_RiNCok/edit?usp=sharing](https://docs.google.com/presentation/d/1h9uBG8ibV6qZNQFVnwLoBDTYdc3QarTJXVT0_RiNCok/edit?usp=sharing)
 
 ## A Aplicação Web
 Nossa aplicação foi desenvolvida usando PhP com o framework Laravel 9. O projeto já vem estruturado seguindo um template pronto do Laravel que segue o padrão MVC (Model, View e Controller). 
